@@ -39,13 +39,13 @@ COPY scripts/ /usr/local/bin
 RUN chmod -R a+x /usr/local/bin
 
 # Install Jobber
-RUN curl -L https://github.com/dshearer/jobber/releases/download/v1.3.2/jobber_1.3.2-1_amd64_ubuntu16.deb > jobber.deb && \
+RUN curl -L https://github.com/dshearer/jobber/releases/download/v1.3.4/jobber_1.3.4-1_amd64.deb > jobber.deb && \
     dpkg -i jobber.deb && \
     DEBIAN_FRONTEND=noninteractive apt-get install -f && \
     rm jobber.deb
 
-ADD ./jobber.conf.yml /etc/jobber.conf
-ADD ./jobber.yml /var/azuracast/.jobber
+COPY ./jobber.conf.yml /etc/jobber.conf
+COPY ./jobber.yml /var/azuracast/.jobber
 
 RUN chown azuracast:azuracast /var/azuracast/.jobber \
     && chmod 644 /var/azuracast/.jobber \
